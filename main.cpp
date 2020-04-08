@@ -1,0 +1,136 @@
+#include <SDL.h>
+#include <cstdlib>
+#include <iostream>
+
+using namespace std;
+
+const int HEIGHT = 800;
+const int WIDTH = 800;
+const int tail_max = 1000;
+int score;
+
+struct Food {
+    int FoodX, FoodY; //coordinate of food
+    int size = 10;
+    void generateFood() {
+        FoodX = rand() % (WIDTH / size);
+        FoodY = rand() % (HEIGHT / size);
+    }
+
+    void draw(SDL_Renderer* renderer) { //draw food
+        SDL_Rect rect;
+        rect.w = size;
+        rect.h = size;
+        rect.x = size * FoodX;
+        rect.y = size * FoodY;
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        SDL_RenderFillRect(renderer, &rect);
+    }
+
+};
+
+struct PosAndVel {
+    int x, y; //position
+    int stepX = 0, stepY = 0; //velocity
+};
+
+struct Snake {
+    PosAndVel position; //coordinate of the snake
+    PosAndVel velocity; //speed of the snake (which has directions)
+    int size = 10;
+    int tail_start, tail_end; //head, //tail
+    PosAndVel tail[tail_max];
+    int tail_length = 1000;
+    void move() {
+        position.x += velocity.stepX;
+        position.y += velocity.stepY;
+    }
+    void update(Food& food) {
+            tail_start++;
+            tail_end++;
+            tail[tail_end % tail_max] = position;
+            position.x += velocity.x;
+            position.y += velocity.y;
+            if (position.x == food.FoodX && position.y == food.FoodY) {
+                tail_length++;
+                tail_start--;
+                food.generateFood();
+                score++;
+                cout << score << ":" << " " << endl;
+            }
+            for (int i = 0; i < tail_length; i++) {
+                PosAndVel& tail_position = tail[(tail_start + i) % tail_max];
+                if (tail_position.x == position.x && tail_position.y == position.y) {
+                    //lose
+                    tail_length = 0;
+                    tail_start = tail_end;
+                }
+            }
+        }
+    void draw(SDL_Renderer* renderer, Food& food) {
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+        for (int i = 0; i < tail_length; i++) {
+            PosAndVel& tail_position = tail[(tail_start + i) % tail_max];
+            SDL_Rect rect{size * tail_position.x, size * tail_position.y, size, size};
+            SDL_RenderFillRect(renderer, &rect);
+        }
+        SDL_Rect rect{size * position.x, size * position.y, size, size};
+        SDL_RenderFillRect(renderer, &rect);
+    }
+};
+
+int main(int argc, char* argv[])
+{
+    SDL_Init(SDL_INIT_EVERYTHING);
+    SDL_Window* window = SDL_CreateWindow("Snake Game!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, HEIGHT, WIDTH, SDL_WINDOW_SHOWN);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    SDL_Event e;
+    bool Isrunning = true;
+    Snake snake = {};
+    Food food = {};
+    food.generateFood();
+    while(Isrunning) {
+        snake.move();
+        SDL_Delay(75);
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                Isrunning = false;
+            }
+            if (e.type == SDL_KEYDOWN) {
+                switch (e.key.keysym.sym) {
+                case SDLK_ESCAPE:
+                    Isrunning = false;
+                    break;
+                case SDLK_UP:
+                    snake.velocity.y = -1;
+                    snake.velocity.x = 0;
+                    break;
+                case SDLK_DOWN:
+                    snake.velocity.y = 1;
+                    snake.velocity.x = 0;
+                    break;
+                case SDLK_LEFT:
+                    snake.velocity.y = 0;
+                    snake.velocity.x = -1;
+                    break;
+                case SDLK_RIGHT:
+                    snake.velocity.y = 0;
+                    snake.velocity.x = 1;
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+        snake.update(food);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+
+        snake.draw(renderer, food);
+        food.draw(renderer);
+
+        SDL_RenderPresent(renderer);
+    }
+
+    return 0;
+}
