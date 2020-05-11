@@ -23,6 +23,26 @@ SDL_Event i_event; //instruction event
 
 SDL_Window *window;
 
+/*
+void Snake::GameOver(Food &food, Obstacles &obstacles, Pictures &picture, SDL_Renderer* renderer)
+{
+     for (int i = 0; i < tail_length; i++) { //tail_length
+        Pos& tail_position = tail[(tail_start + i) % tail_max]; //tail_start
+        if (tail_position.x == position_head.x && tail_position.y == position_head.y) {
+            IsPlaying = false;
+            while(!IsPlaying) {
+                picture.getGameOver(renderer);
+            }
+        }
+    }
+    if (obstacles.ObsX == position_head.x && obstacles.ObsY == position_head.y) {
+        IsPlaying = false;
+            while(!IsPlaying) {
+                picture.getGameOver(renderer);
+            }
+    }
+}
+*/
 void Menu(SDL_Renderer *renderer, Pictures &picture, Button &button)
 {
     picture.getMenuBackground(renderer);
@@ -62,6 +82,8 @@ void GamePlay(SDL_Renderer *renderer, SDL_Event g_event, Pictures &picture, Obst
     obstacles.draw(renderer);
     snake.draw(renderer, snake, tail_position);
     food.draw(renderer);
+    //while (snake.GameOver(food, obstacles, picture)) {picture.getGameOver(renderer);}
+    //picture.getGameOver(renderer);
     SDL_RenderPresent(renderer);
     while (SDL_PollEvent(&g_event)) {
         if (g_event.type == SDL_QUIT) {
@@ -130,6 +152,18 @@ int main(int argc, char* argv[])
             else if (x >= buttoncoor.bEX && x <= buttoncoor.bEX + buttoncoor.bEW && y >= buttoncoor.bEY && y <= buttoncoor.bEY + buttoncoor.bEH) //click exit
             {
                 Isrunning = false;
+            }
+            else if (x >= buttoncoor.bSOnX && x <= buttoncoor.bSOnX + buttoncoor.bSOnW && y >= buttoncoor.bSOnY && y <= buttoncoor.bSOnY + buttoncoor.bSOnH)
+            {
+                TurnOffSound = true;
+                while(TurnOffSound) {
+                button.getButtonSoundOff(renderer); SDL_RenderPresent(renderer);
+                }
+                if(!TurnOffSound) {
+                button.getButtonSoundOn(renderer);
+                SDL_RenderPresent(renderer);
+                }
+                //while(!TurnOffSound) {button.getButtonSoundOn(renderer); SDL_RenderPresent(renderer);}
             }
             }
         }
