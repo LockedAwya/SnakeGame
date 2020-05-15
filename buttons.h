@@ -17,7 +17,7 @@ struct ButtonCoor {
     const int bEY = 450;
     const int bEW = 70;
     const int bEH = 70;
-
+    /*
     const int bSOnX = 0;
     const int bSOnY = 550;
     const int bSOnW = 50;
@@ -32,6 +32,7 @@ struct ButtonCoor {
     const int bBackY = 0;
     const int bBackW = 50;
     const int bBackH = 50;
+    */
 };
 
 class Button
@@ -41,9 +42,6 @@ public:
     void getButtonPlay(SDL_Renderer* renderer); //upload play button
     void getButtonInstruction(SDL_Renderer* renderer); //upload instruction button
     void getButtonExit(SDL_Renderer* renderer);
-    void getButtonSoundOn(SDL_Renderer* renderer);
-    void getButtonSoundOff(SDL_Renderer* renderer);
-    void getButtonBack(SDL_Renderer* renderer);
 };
 
 #endif // BUTTONS_H_INCLUDED

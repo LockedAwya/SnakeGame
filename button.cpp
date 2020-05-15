@@ -66,7 +66,7 @@ void Button::getButtonExit(SDL_Renderer* renderer)
     SDL_RenderCopy(renderer, loaded_exit_button, NULL, &desRect);
     SDL_DestroyTexture(loaded_exit_button);
 }
-
+/*
 void Button::getButtonSoundOn(SDL_Renderer *renderer)
 {
     SDL_Rect desRect;
@@ -129,3 +129,4 @@ void Button::getButtonBack(SDL_Renderer *renderer)
     SDL_RenderCopy(renderer, load_SoundOff_button, NULL, &desRect);
     SDL_DestroyTexture(load_SoundOff_button);
 }
+*/

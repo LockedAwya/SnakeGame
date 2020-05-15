@@ -54,7 +54,7 @@ void Menu(SDL_Renderer *renderer, Pictures &picture, Button &button)
     button.getButtonInstruction(renderer);
     button.getButtonPlay(renderer);
     button.getButtonExit(renderer);
-    button.getButtonSoundOn(renderer);
+    //button.getButtonSoundOn(renderer);
     //button.getButtonSoundOff(renderer);
     SDL_RenderPresent(renderer);
 }
@@ -62,7 +62,7 @@ void Menu(SDL_Renderer *renderer, Pictures &picture, Button &button)
 void Instruction(SDL_Renderer *renderer, SDL_Event i_event, Pictures &picture, Button &button)
 {
     picture.getInstructionBackground(renderer);
-    button.getButtonBack(renderer);
+    //button.getButtonBack(renderer);
     SDL_RenderPresent(renderer);
     while(SDL_PollEvent(&i_event)) {
     if (i_event.type == SDL_QUIT) {
@@ -129,19 +129,15 @@ void Snake::update(Food &food, Obstacles &obstacles, Pictures &picture, SDL_Rend
 void GamePlay(SDL_Renderer *renderer, SDL_Event g_event, Pictures &picture, Obstacles &obstacles, Food &food, Snake &snake, Pos& tail_position)
 {
     uint32_t delta_time;
-    ///snake.move();
-    //SDL_Delay(5);
+    snake.move();
     //snake.update(food, obstacles, picture, renderer, delta_time);
     picture.getGamePlayBackground(renderer);
     //snake.Setup();
     //snake.draw(renderer, snake, tail_position);
-    ///snake.update(food, obstacles, picture, renderer, delta_time);
-    ///snake.draw(renderer, snake, tail_position);
-    ///obstacles.draw(renderer);
-    ///food.draw(renderer);
-    //snake.update(food, obstacles, picture, renderer, delta_time);
-    //while (snake.GameOver(food, obstacles, picture)) {picture.getGameOver(renderer);}
-    //picture.getGameOver(renderer);
+    snake.update(food, obstacles, picture, renderer, delta_time);
+    snake.draw(renderer, snake, tail_position);
+    obstacles.draw(renderer);
+    food.draw(renderer);
     SDL_RenderPresent(renderer);
     while (SDL_PollEvent(&g_event)) {
         if (g_event.type == SDL_QUIT) {
@@ -183,7 +179,7 @@ int main(int argc, char* argv[])
     Pos tail_position = {};
     window = SDL_CreateWindow("Snake Game!", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, HEIGHT, WIDTH, SDL_WINDOW_SHOWN);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
-        uint32_t current_time = 0, previous_time, delta_time;
+    uint32_t current_time = 0, previous_time, delta_time;
     while(Isrunning) {
         previous_time = current_time;
         current_time = SDL_GetTicks();
