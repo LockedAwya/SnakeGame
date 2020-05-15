@@ -2,8 +2,15 @@
 #define OBSTACLES_H_INCLUDED
 #include <SDL.h>
 #include <vector>
-
-
+/*
+struct ObstaclesCoor {
+    int ObsX, ObsY;
+    ObstaclesCoor(int _ObsX, int _ObsY) {
+        ObsX = _ObsX;
+        ObsY = _ObsY;
+    }
+};
+*/
 class Obstacles
 {
 public:

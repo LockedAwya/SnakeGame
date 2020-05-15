@@ -18,6 +18,7 @@ struct Vel {
 
 struct Pos {
     int x, y;
+    //Pos tail[tail_max];
 };
 
 class Snake
@@ -25,13 +26,15 @@ class Snake
 private:
     Pos position_head; //snake's head position
     Vel velocity; //speed of the snake (which has directions)
-    int tail_start, tail_end; //head, //tail
+    int tail_start = 0, tail_end = 0; //head, //tail
     int tail_length = 1000;
     Pos tail[tail_max];
+    uint32_t accumulator;
+
     //bool isCollide(Obstacles &obstacles);
 public:
     void move();
-    void update(Food &food, Obstacles &obstacles, Pictures &picture, SDL_Renderer* renderer);
+    void update(Food &food, Obstacles &obstacles, Pictures &picture, SDL_Renderer* renderer, uint32_t delta_time);
     void draw(SDL_Renderer* renderer, Snake &snake, Pos& tail_position);
     void drawHead(SDL_Renderer* renderer);
     void drawTails(SDL_Renderer* renderer, Pos& tail_position);
@@ -39,7 +42,8 @@ public:
     void TurnRight();
     void TurnUp();
     void TurnDown();
-    void GameOver(Food &food, Obstacles &obstacles, Pictures &picture, SDL_Renderer *renderer);
+    void Setup();
+    //void GameOver();
 };
 
 #endif // SNAKE_H_INCLUDED

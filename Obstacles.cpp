@@ -13,12 +13,18 @@ void Obstacles::generateObs()
 }
 */
 
+class ObstaclesCoor;
+
 void Obstacles::generateObs()
 {
     ObsX = rand() % (WIDTH / 10);
     Obs.push_back(ObsX);
     ObsY = rand() % (HEIGHT / 10);
     Obs.push_back(ObsY);
+    /*
+    ObstacleCoor obstacle = Obstacle(rand() % (600 / 10), rand() % (600 / 10));
+    obstacle.push_back(obstacle);
+    */
 }
 
 
