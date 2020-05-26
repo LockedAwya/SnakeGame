@@ -28,7 +28,6 @@ int main(int argc, char* argv[])
     sound.GameSound();
     game.GameIsRunning(renderer);
     sound.FreeGameSound();
-    //Mix_CloseAudio();
     //Destroy a window.
 	SDL_DestroyWindow(window);
 	//Destroy a renderer
