@@ -8,9 +8,9 @@ const int WIDTH = 600;
 
 void Food::generateFood()
 {
-    FoodX = rand() % (WIDTH / FoodWidth); //12
+    FoodX = rand() % (WIDTH / FoodWidth);
     Food.push_back(FoodX);
-    FoodY = rand() % (HEIGHT / FoodHeight); //12
+    FoodY = rand() % (HEIGHT / FoodHeight);
     Food.push_back(FoodY);
 }
 
@@ -23,8 +23,8 @@ void Food::draw(SDL_Renderer *renderer)
     SDL_QueryTexture(loadedcherry, NULL, NULL, &sourceRect.w, &sourceRect.h);
     sourceRect.x = 0;
 	sourceRect.y = 0;
-	sourceRect.w = FoodWidth; //16
-	sourceRect.h = FoodHeight; //16
+	sourceRect.w = FoodWidth;
+	sourceRect.h = FoodHeight;
 
 	desRect.x = sizeFoodXY * FoodX;
 	desRect.y = sizeFoodXY * FoodY;

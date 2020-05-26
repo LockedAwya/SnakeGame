@@ -20,6 +20,8 @@ Food food = {};
 Game game = {};
 Sound sound = {};
 
+///updating the snake
+
 void Snake::update(Food &food, Obstacles &obstacles, SDL_Renderer* renderer)
 {
     tail_start++; //head
@@ -31,14 +33,14 @@ void Snake::update(Food &food, Obstacles &obstacles, SDL_Renderer* renderer)
     if (position_head.x < 0) {position_head.x = (WIDTH/snakeXY);}
     if (position_head.y < 0) {position_head.y = (HEIGHT/snakeXY);}
     //if snake's head gets the food, he will be longer in length
-    if (position_head.x == food.FoodX && position_head.y == food.FoodY) { //food.FoodX, food.FoodY //position_head
+    if (position_head.x == food.FoodX && position_head.y == food.FoodY) {
             Score++;
             tail_length++;
             tail_start--;
             food.generateFood();
             obstacles.generateObs();
     }
-    ///// check lose //////
+    ///<--------- check lose ---------------->///
     for (int i = 0; i < tail_length; i++) { //tail_length
         Pos& tail_position = tail[(tail_start + i) % tail_max]; //tail_start
         if (tail_position.x == position_head.x && tail_position.y == position_head.y) {
@@ -55,6 +57,8 @@ void Snake::update(Food &food, Obstacles &obstacles, SDL_Renderer* renderer)
             tail_start = tail_end;
     }
 }
+
+///Updating the score
 
 void Snake::Scoring(SDL_Renderer *renderer)
 {
@@ -80,6 +84,8 @@ void Snake::Scoring(SDL_Renderer *renderer)
     SDL_DestroyTexture(text);
 }
 
+///Menu Game
+
 void Game::Menu(SDL_Renderer* renderer)
 {
     picture.getMenuBackground(renderer);
@@ -87,6 +93,8 @@ void Game::Menu(SDL_Renderer* renderer)
     SDL_RenderPresent(renderer);
     SDL_RenderClear(renderer);
 }
+
+///GamePlay
 
 void Game::GamePlay(SDL_Renderer* renderer)
 {
@@ -156,7 +164,7 @@ void Game::GameIsRunning(SDL_Renderer *renderer)
     picture.getMenuBackground(renderer);
     button.LoadButtons(renderer);
     SDL_RenderPresent(renderer);
-    //SDL_RenderClear(renderer);
+    SDL_RenderClear(renderer);
     while (SDL_PollEvent(&m_event)) {
         if (m_event.type == SDL_QUIT) { //e
             Isrunning = false;
@@ -165,28 +173,28 @@ void Game::GameIsRunning(SDL_Renderer *renderer)
         {
             int x = m_event.motion.x;
             int y = m_event.motion.y;
-            if (x >= buttoncoor.bPX && x <= buttoncoor.bPX + buttoncoor.bPW && y >= buttoncoor.bPY && y <= buttoncoor.bPY + buttoncoor.bPH) //click PlayGame
+            if (x >= buttoncoor.bPX && x <= buttoncoor.bPX + buttoncoor.bPW && y >= buttoncoor.bPY && y <= buttoncoor.bPY + buttoncoor.bPH) ///click PlayGame
             {
                  IsPlaying = true;
                  while(IsPlaying) {
                     game.GamePlay(renderer);
                 }
             }
-        else if (x >= buttoncoor.bIX && x <= buttoncoor.bIX + buttoncoor.bIW && y >= buttoncoor.bIY && y <= buttoncoor.bIY + buttoncoor.bIH) //click instruction
+        else if (x >= buttoncoor.bIX && x <= buttoncoor.bIX + buttoncoor.bIW && y >= buttoncoor.bIY && y <= buttoncoor.bIY + buttoncoor.bIH) ///click instruction
         {
             IsInstruction = true;
             while (IsInstruction) {
                 game.Instruction(renderer);
             }
         }
-        else if (x >= buttoncoor.bEX && x <= buttoncoor.bEX + buttoncoor.bEW && y >= buttoncoor.bEY && y <= buttoncoor.bEY + buttoncoor.bEH) //click exit
+        else if (x >= buttoncoor.bEX && x <= buttoncoor.bEX + buttoncoor.bEW && y >= buttoncoor.bEY && y <= buttoncoor.bEY + buttoncoor.bEH) ///click exit button
         {
             Isrunning = false;
         }
         SDL_RenderClear(renderer);
     }
     //SDL_RenderClear(renderer);
-}
-}
+    }
+    }
 }
 

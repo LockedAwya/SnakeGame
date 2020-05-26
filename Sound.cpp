@@ -9,7 +9,6 @@ void Sound::GameSound()
     PlaySound = Mix_LoadMUS("MenuSound2.mp3");
     Mix_PlayMusic(PlaySound, -1);
     SDL_Delay(3000);
-    //Mix_FreeChunk(PlaySound);
 }
 
 void Sound::FreeGameSound()

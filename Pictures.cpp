@@ -14,8 +14,6 @@ void Pictures::getGamePlayBackground(SDL_Renderer *renderer)
     loadGamePlayBackground = IMG_LoadTexture(renderer ,"GamePlayBackground.png");
     SDL_RenderCopy(renderer, loadGamePlayBackground, NULL, NULL);
     SDL_DestroyTexture(loadGamePlayBackground);
-
-    delete loadGamePlayBackground;
 }
 
 void Pictures::getMenuBackground(SDL_Renderer *renderer)
@@ -24,8 +22,6 @@ void Pictures::getMenuBackground(SDL_Renderer *renderer)
     loadMenuBackground = IMG_LoadTexture(renderer ,"6.png");
     SDL_RenderCopy(renderer, loadMenuBackground, NULL, NULL);
     SDL_DestroyTexture(loadMenuBackground);
-
-    delete loadMenuBackground;
 }
 
 void Pictures::getInstructionBackground(SDL_Renderer *renderer)
