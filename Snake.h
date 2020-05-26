@@ -5,7 +5,6 @@
 #include "Obstacles.h"
 #include "Pictures.h"
 #include <SDL.h>
-#include <string>
 
 int const tail_max = 1000;
 
@@ -18,32 +17,32 @@ struct Vel {
 
 struct Pos {
     int x, y;
-    //Pos tail[tail_max];
 };
 
 class Snake
 {
 private:
     Pos position_head; //snake's head position
-    Vel velocity; //speed of the snake (which has directions)
+    Vel velocity; //speed of the snake
     int tail_start = 0, tail_end = 0; //head, //tail
     int tail_length = 1000;
     Pos tail[tail_max];
-    uint32_t accumulator;
+    int Score = 0;
+    const int snakeWidth = 12;
+    const int snakeHeight = 12;
 
-    //bool isCollide(Obstacles &obstacles);
+    const int snakeXY = 10;
 public:
     void move();
-    void update(Food &food, Obstacles &obstacles, Pictures &picture, SDL_Renderer* renderer, uint32_t delta_time);
-    void draw(SDL_Renderer* renderer, Snake &snake, Pos& tail_position);
+    void update(Food &food, Obstacles &obstacles, SDL_Renderer* renderer);
+    void draw(SDL_Renderer* renderer, Snake &snake);
     void drawHead(SDL_Renderer* renderer);
-    void drawTails(SDL_Renderer* renderer, Pos& tail_position);
+    void drawTails(SDL_Renderer* renderer);
     void TurnLeft();
     void TurnRight();
     void TurnUp();
     void TurnDown();
-    void Setup();
-    //void GameOver();
+    void Scoring(SDL_Renderer* renderer); //Update the scoring stuff
 };
 
 #endif // SNAKE_H_INCLUDED

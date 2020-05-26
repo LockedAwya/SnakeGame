@@ -5,40 +5,21 @@
 
 const int HEIGHT = 600;
 const int WIDTH = 600;
-/*
-void Obstacles::generateObs()
-{
-    ObsX = rand() % (600 / 10);
-    ObsY = rand() % (600 / 10);
-}
-*/
 
 class ObstaclesCoor;
 
 void Obstacles::generateObs()
 {
-    ObsX = rand() % (WIDTH / 10);
+    ObsX = rand() % (WIDTH / 16); //12
     Obs.push_back(ObsX);
-    ObsY = rand() % (HEIGHT / 10);
+    ObsY = rand() % (HEIGHT / 16); //12
     Obs.push_back(ObsY);
-    /*
-    ObstacleCoor obstacle = Obstacle(rand() % (600 / 10), rand() % (600 / 10));
-    obstacle.push_back(obstacle);
-    */
 }
 
 
 void Obstacles::draw(SDL_Renderer* renderer)
 {
-    /*
-    SDL_Rect rect;
-    rect.w = 10;
-    rect.h = 10;
-    rect.x = 10 * ObsX;
-    rect.y = 10 * ObsY;
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderFillRect(renderer, &rect);
-    */
+    Obstacles obstacles = {};
     SDL_Rect sourceRect;
     SDL_Rect desRect;
     SDL_Texture* load_obstacle = NULL;
@@ -46,13 +27,15 @@ void Obstacles::draw(SDL_Renderer* renderer)
     SDL_QueryTexture(load_obstacle, NULL, NULL, &sourceRect.w, &sourceRect.h);
     sourceRect.x = 0;
     sourceRect.y = 0;
-    sourceRect.w /= 10;
-    sourceRect.h /= 10;
+    sourceRect.w = obstacles.ObsWidth;
+    sourceRect.h = obstacles.ObsHeight;
 
-    desRect.x = 10 * ObsX;
-    desRect.y = 10 * ObsY;
+    desRect.x = sizeObsXY * ObsX;
+    desRect.y = sizeObsXY * ObsY;
     desRect.w = sourceRect.w;
     desRect.h = sourceRect.h;
     SDL_RenderCopy(renderer, load_obstacle, NULL, &desRect);
+    //SDL_RenderClear(renderer);
     SDL_DestroyTexture(load_obstacle);
+
 }

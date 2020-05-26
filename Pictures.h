@@ -9,9 +9,7 @@ class Pictures
 public:
     void getMenuBackground(SDL_Renderer *renderer);
     void getInstructionBackground(SDL_Renderer *renderer);
-    void getGameOver(SDL_Renderer *renderer);
     void getGamePlayBackground(SDL_Renderer *renderer);
-    void getText(SDL_Renderer *renderer);
 };
 
 #endif // PICTURES_H_INCLUDED
