@@ -29,7 +29,6 @@ void Snake::update(Food &food, Obstacles &obstacles, SDL_Renderer* renderer)
 {
     tail_start++; //tail
     tail_head++; //head
-    std::cout << tail_head << std::endl;
     tail[tail_head % tail_max] = position_head; //head //tail_end
     //check if snake go outside of the screen, his head will reappear on the opposite side.
     if (position_head.x >= (WIDTH/snakeXY)) {position_head.x = 0;}
