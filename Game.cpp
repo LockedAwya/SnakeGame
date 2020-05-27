@@ -27,7 +27,7 @@ Sound sound = {};
 
 void Snake::update(Food &food, Obstacles &obstacles, SDL_Renderer* renderer)
 {
-    tail_start--; //tail
+    tail_start++; //tail
     tail_head++; //head
     std::cout << tail_head << std::endl;
     tail[tail_head % tail_max] = position_head; //head //tail_end
@@ -40,7 +40,7 @@ void Snake::update(Food &food, Obstacles &obstacles, SDL_Renderer* renderer)
     if (position_head.x == food.FoodX && position_head.y == food.FoodY) {
             Score++;
             tail_length++;
-            tail_start++;
+            tail_start--;
             food.generateFood();
             obstacles.generateObs();
     }
