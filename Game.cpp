@@ -11,6 +11,9 @@
 #include <SDL_image.h>
 #include <cstdlib>
 #include <sstream>
+#include <iostream>
+
+using namespace std;
 
 Pictures picture = {};
 Button button = {};
@@ -24,9 +27,10 @@ Sound sound = {};
 
 void Snake::update(Food &food, Obstacles &obstacles, SDL_Renderer* renderer)
 {
-    tail_start++; //head
-    tail_end++; //last tail
-    tail[tail_end % tail_max] = position_head; //head //tail_end
+    tail_start--; //tail
+    tail_head++; //head
+    std::cout << tail_head << std::endl;
+    tail[tail_head % tail_max] = position_head; //head //tail_end
     //check if snake go outside of the screen, his head will reappear on the opposite side.
     if (position_head.x >= (WIDTH/snakeXY)) {position_head.x = 0;}
     if (position_head.y >= (HEIGHT/snakeXY)) {position_head.y = 0;} //60
@@ -36,7 +40,7 @@ void Snake::update(Food &food, Obstacles &obstacles, SDL_Renderer* renderer)
     if (position_head.x == food.FoodX && position_head.y == food.FoodY) {
             Score++;
             tail_length++;
-            tail_start--;
+            tail_start++;
             food.generateFood();
             obstacles.generateObs();
     }
@@ -47,14 +51,14 @@ void Snake::update(Food &food, Obstacles &obstacles, SDL_Renderer* renderer)
             IsPlaying = false;
             tail_length = 0;
             Score = 0;
-            tail_start = tail_end;
+            tail_start = tail_head;
         }
     }
     if (obstacles.ObsX == position_head.x && obstacles.ObsY == position_head.y) {
             IsPlaying = false;
             tail_length = 0;
             Score = 0;
-            tail_start = tail_end;
+            tail_start = tail_head;
     }
 }
 
