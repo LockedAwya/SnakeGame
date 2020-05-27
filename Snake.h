@@ -24,7 +24,7 @@ class Snake
 private:
     Pos position_head; //snake's head position
     Vel velocity; //speed of the snake
-    int tail_start = 0, tail_end = 0; //head, //tail
+    int tail_start = 0, tail_head = 0; //tail //head
     int tail_length = 1000;
     Pos tail[tail_max];
     int Score = 0;
